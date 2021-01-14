@@ -50,6 +50,10 @@ class IndexController extends AbstractActionController
             $itemData['o:item_set'] = [
                 'o:id' => $cForm->itemSet() ? $cForm->itemSet()->id() : null,
             ];
+            /* SF: edit */
+            $itemData['o:site'] = [
+                'o:id' => $cForm->site() ? $cForm->site()->id() : 99,
+            ];
             $response = $this->api($form)
                 ->create('items', $itemData, $this->params()->fromFiles());
 
