@@ -42,7 +42,7 @@ $(document).ready(function() {
 
     //set the value of any year-field to 2020
     $(document).find('.numeric-datetime-year').each(function() {
-        $(this).val('2020');
+        $(this).val('2021');
     });
 });
 
