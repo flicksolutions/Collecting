@@ -112,11 +112,11 @@ class Module extends AbstractModule
             [$this, 'handleAdminShowAfter']
         );
 
-        $sharedEventManager->attach(
+        /*$sharedEventManager->attach(
             'Omeka\Controller\Site\Item',
             'view.show.after',
             [$this, 'handlePublicShowAfter']
-        );
+        );*/
 
         // Add the collecting tab to the item show section navigation.
         $sharedEventManager->attach(

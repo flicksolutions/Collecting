@@ -122,6 +122,7 @@ class CollectingFormRepresentation extends AbstractEntityRepresentation
         $api = $this->getServiceLocator()->get('Omeka\ApiManager');
         $auth = $this->getServiceLocator()->get('Omeka\AuthenticationService');
         $user = $auth->getIdentity(); // returns a User entity or null
+        $translator = $this->getServiceLocator()->get('MvcTranslator');
 
         $form = new Form(sprintf('collecting_form_%s', $this->id()));
         $this->form = $form; // cache the form
@@ -150,14 +151,14 @@ class CollectingFormRepresentation extends AbstractEntityRepresentation
                         case 'select':
                             $selectOptions = explode(PHP_EOL, $prompt->selectOptions());
                             $element = new Element\PromptSelect($name);
-                            $element->setEmptyOption('Please choose one...') // @translate
+                            $element->setEmptyOption($translator->translate('Please choose one...')) // @translate
                                 ->setValueOptions(array_combine($selectOptions, $selectOptions));
                             break;
                         case 'item':
                             parse_str(ltrim($prompt->resourceQuery(), '?'), $resourceQuery);
                             $element = new Element\PromptItem($name);
                             $element->setApiManager($api);
-                            $element->setEmptyOption('Please choose one...') // @translate
+                            $element->setEmptyOption($translator->translate('Please choose one...')) // @translate
                                 ->setResourceValueOptions('items', function ($item) {
                                     return sprintf('#%s: %s', $item->id(), mb_substr($item->displayTitle(), 0, 80));
                                 }, $resourceQuery);
@@ -177,7 +178,7 @@ class CollectingFormRepresentation extends AbstractEntityRepresentation
                             }
                             $terms = array_map('trim', explode(PHP_EOL, $response->getContent()->terms()));
                             $element = new Element\PromptSelect($name);
-                            $element->setEmptyOption('Please choose one...') // @translate
+                            $element->setEmptyOption($translator->translate('Please choose one...')) // @translate
                                 ->setValueOptions(array_combine($terms, $terms));
                             break;
                         case 'numeric:timestamp':
@@ -250,14 +251,13 @@ class CollectingFormRepresentation extends AbstractEntityRepresentation
 
         $settings = $this->getServiceLocator()->get('Omeka\Settings');
         $siteSettings = $this->getServiceLocator()->get('Omeka\Settings\Site');
-        $translator = $this->getServiceLocator()->get('MvcTranslator');
 
         if ('user' === $this->anonType()) {
             $form->add([
                 'type' => 'checkbox',
                 'name' => sprintf('anon_%s', $this->id()),
                 'options' => [
-                    'label' => 'I want to submit anonymously', // @translate
+                    'label' => $translator->translate('I want to submit anonymously'), // @translate
                 ],
             ]);
         }
@@ -267,7 +267,7 @@ class CollectingFormRepresentation extends AbstractEntityRepresentation
                 'type' => 'checkbox',
                 'name' => sprintf('email_send_%s', $this->id()),
                 'options' => [
-                    'label' => 'Email me my submission', // @translate
+                    'label' => $translator->translate('Email me my submission'), // @translate
                 ],
             ]);
         }
