@@ -51,10 +51,11 @@ class IndexController extends AbstractActionController
                 'o:id' => $cForm->itemSet() ? $cForm->itemSet()->id() : null,
             ];
             /* SF: edit */
-            if ($cForm->site() === 5) {
+            if ($cForm->site() && $cForm->site()->id() === 5) {
                 $itemData['o:site'] = [
                     ['o:id' => 5,],
                     ['o:id' => 7,],
+                    ['o:id' => 8,],
                 ];
             } else {
                 $itemData['o:site'] = [
