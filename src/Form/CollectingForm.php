@@ -4,7 +4,7 @@ namespace Collecting\Form;
 use Collecting\Entity\CollectingForm as CollectingFormEntity;
 use Omeka\Form\Element\CkeditorInline;
 use Omeka\Form\Element\ItemSetSelect;
-use Omeka\Form\Element\SitePageSelect;
+use Omeka\Form\Element\SiteSelect;
 use Laminas\Form\Form;
 
 class CollectingForm extends Form
@@ -35,9 +35,9 @@ class CollectingForm extends Form
         ]);
         $this->add([
             'name' => 'site_id',
-            'type' => SitePageSelect::class,
+            'type' => SiteSelect::class,
             'options' => [
-                'label' => 'Item set', // @translate
+                'label' => 'Site', // @translate
                 'info' => 'Assign all items created by this form to this site.', // @translate
                 'empty_option' => 'Select Site...', // @translate
             ],
