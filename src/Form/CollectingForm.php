@@ -33,8 +33,8 @@ class CollectingForm extends Form
                 'required' => false,
             ],
         ]);
-        /*  This does not safe the site and is arbitrary...
-         * $this->add([
+        //  This justs sets the site to the current site, which is weird
+        $this->add([
             'name' => 'site_id',
             'type' => SiteSelect::class,
             'options' => [
@@ -45,7 +45,7 @@ class CollectingForm extends Form
             'attributes' => [
                 'required' => false,
             ],
-        ]);*/
+        ]);
         $this->add([
             'name' => 'o-module-collecting:anon_type',
             'type' => 'select',
